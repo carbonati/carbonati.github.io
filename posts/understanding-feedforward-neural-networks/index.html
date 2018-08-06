@@ -122,10 +122,10 @@
             </p>
 
             <pre><code class="python">X = np.array([[1,0,0],[1,1,0],[1,0,1],[1,1,1]]) # 1st column full of 1's for our intercept b
-        y = np.array([0,1,1,0])
-        x_dot_x_inv = np.linalg.inv(np.dot(X.transpose(),X))
-        x_inv_dot_x = np.dot(x_dot_x_inv, x.transpose())
-        theta = np.dot(x_inv_dot_x,y)</code></pre>
+y = np.array([0,1,1,0])
+x_dot_x_inv = np.linalg.inv(np.dot(X.transpose(),X))
+x_inv_dot_x = np.dot(x_dot_x_inv, x.transpose())
+theta = np.dot(x_inv_dot_x,y)</code></pre>
 
             <p>
                 The normal equation gives us $\boldsymbol{w}=\boldsymbol{0}$ and $b=\frac{1}{2}$ as the parameters that minimize our function $f$, i.e. these are the best parameters our model can find, which gives a simple output of 0.5 for each input. This would give us a MSE of 0.25, or in the context of classification the best we can do is perform at 50% accuracy (if we say all $\hat{y}\leq$ 0.5 belongs to class 0 or $\hat{y}>$ 0 belongs to class 1 we'll never predict greater than 50% accuracy). Time to move onto a more complex model. 
