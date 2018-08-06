@@ -448,11 +448,11 @@ layers.push({type = 'dense', n_neurons: 64, activation: 'linear'});</code></pre>
 			</p>
 
 			<pre style="border: solid 1px #e1e4e5; padding: 2px; background-color:#FFFBFB;"><code class="javascript hljs">params = {
-optimizer: 'SGD',
-learning_rate: 0.01,
-momentum: 0.9,ls
-l2_decay: 0.01,
-batch_size: 10
+	optimizer: 'SGD',
+	learning_rate: 0.01,
+	momentum: 0.9,ls
+	l2_decay: 0.01,
+	batch_size: 10
 };
 trainer = new browsernn.Trainer(model, layers, params);</code></pre>
 			
@@ -486,10 +486,10 @@ trainer = new browsernn.Trainer(model, layers, params);</code></pre>
 
 			<h4>Example</h4>
 			<pre style="border: solid 1px #e1e4e5; padding: 2px; background-color:#FFFBFB;"><code class="javascript hljs">params = {
-optimizer: 'adagrad',
-learning_rate: 0.01,
-epsilon: 1e-7,
-batch_size: 10
+	optimizer: 'adagrad',
+	learning_rate: 0.01,
+	epsilon: 1e-7,
+	batch_size: 10
 };
 trainer = new browsernn.Trainer(model, layers, params);</code></pre>
 	
@@ -512,11 +512,11 @@ trainer = new browsernn.Trainer(model, layers, params);</code></pre>
 
 			<h4>Example</h4>
 			<pre style="border: solid 1px #e1e4e5; padding: 2px; background-color:#FFFBFB;"><code class="javascript hljs">params = {
-optimizer: 'adadelta',
-learning_rate: 1.0,
-epsilon: 1e-7,
-rho: 0.95,
-batch_size: 10
+	optimizer: 'adadelta',
+	learning_rate: 1.0,
+	epsilon: 1e-7,
+	rho: 0.95,
+	batch_size: 10
 };
 trainer = new browsernn.Trainer(model, layers, params);</code></pre>
 
