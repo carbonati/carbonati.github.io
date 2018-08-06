@@ -150,7 +150,7 @@ body {
 @media (min-width: 1080px) {
 		.home-article > h1, .home-article section > h1, .home-page-list, .l-page, .home-article .l-page, .home-article.centered .l-page,
 		.tan-header .content {
-		    width: 800px;
+		    width: 900px;
 		    display: border;
 		    margin-left: auto;
 		    margin-right: auto;
@@ -168,7 +168,7 @@ body {
 	    padding-bottom:50px;
 	    margin-left: auto;
 	    margin-right: auto;
-	    width: 800px;
+	    width: 900px;
 	}
 
 	.thumbnail .bnn-fig {
