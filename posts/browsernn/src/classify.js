@@ -15,7 +15,7 @@ layers.push({type: 'dense', n_neurons: 4, activation: 'tanh'}); \n\
 layers.push({type: 'softmax', n_classes: 2}); \n\
 \n\
 params = {optimizer: 'sgd', \n\
-		learning_rate: .01, \n\
+		learning_rate: .001, \n\
 		momentum: 0.01, \n\
 		batch_size: 10, \n\
 		l2_decay: 0.01}; \n\
