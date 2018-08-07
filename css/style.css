@@ -16,7 +16,6 @@ body {
 	font-size: 14px;
 }
 
-
 .tan-header {
     display: block;
     position: relative;
@@ -51,34 +50,39 @@ body {
 }
 
 
-
 .tan-header .logo {
-  font-size: 45px;
-  font-weight: 200;
-  margin-top:30px;
-  margin-bottom:5px;
+	font-size: 45px;
+	font-weight: 200;
+	margin-top:30px;
+	margin-bottom:5px;
 }
 
 .tan-header .nav a {
-  font-size: 26px;
-  margin-left: 20px;
+	font-size: 26px;
+	margin-left: 20px;
 }
+
 @media(min-width: 1080px) {
-  .tan-header {
-    height: 70px;
-  }
-  .tan-header a {
-    line-height: 70px;
-    padding: 28px 0;
-  }
-  .tan-header .logo {
-  	font-size: 25px;
-    font-weight: 200;
-  }
-  .tan-header .nav a {
-	  font-size: 16px;
-	  margin-left: 20px;
-  }
+  
+	.tan-header {
+		height: 70px;
+	}
+
+	.tan-header a {
+		line-height: 70px;
+		padding: 28px 0;
+	}
+
+	.tan-header .logo {
+		font-size: 25px;
+		font-weight: 200;
+	}
+
+	.tan-header .nav a {
+ 		font-size: 16px;
+ 		margin-left: 20px;
+	}
+
 }
 
 .tan-header .nav {
@@ -109,16 +113,23 @@ body {
 .metadata > * {
     display: inline-block;
 }
+
 .home-page-list {
-	margin-left: 60px;
-    margin-right: 60px;
+	margin-left: 40px;
+    margin-right: 40px;
 }
+
 .home-page-list .post-preview .thumbnail {
 	border: 0;
-    /*box-sizing: border-box;*/
     margin-bottom: 24px;
     position: relative;
-    /*width: 648px;*/
+}
+
+.thumbnail .bnn-fig {
+	position: relative;
+	height:180px;
+	width:100%;
+	
 }
 
 .home-page-list .post-preview {
@@ -147,34 +158,39 @@ body {
     
 }
 
+
 @media (min-width: 1080px) {
-		.home-article > h1, .home-article section > h1, .home-page-list, .l-page, .home-article .l-page, .home-article.centered .l-page,
-		.tan-header .content {
-		    width: 900px;
-		    display: border;
-		    margin-left: auto;
-		    margin-right: auto;
-		}
+	
+	.home-article > h1, .home-article section > h1, .home-page-list, .l-page, .home-article .l-page, .home-article.centered .l-page,
+	.tan-header .content {
+	    width: 900px;
+	    display: border;
+	    margin-left: auto;
+	    margin-right: auto;
 	}
 
+	.thumbnail .bnn-fig {
+		height: 200px;
+		width: 280px;
+		margin-left:30px;
 
-@media (min-width: 1080px) {
+	}
 
 	.home-page-list .post-preview {
-		
 	    overflow: hidden;
 	    display: block;
 	    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	    padding-bottom:50px;
+	    padding-bottom: 40px;
 	    margin-left: auto;
 	    margin-right: auto;
 	    width: 900px;
 	}
 
-	.thumbnail .bnn-fig {
-		height: 200px;
-		width: 90%;
+
+	#bnn {
+		padding-bottom: 20px;
 	}
+
 	.home-page-list .post-preview a {
 
 	    text-decoration: none;
@@ -184,39 +200,34 @@ body {
 
 	}
 
-	@media (min-width: 768px) {
-		.home-page-list {
-		    margin-top: 60px;
-		}
+	
+	.home-page-list {
+	    margin-top: 60px;
+	}	
+	
+	.home-page-list .thumbnail {
+		border: 0;
+	    float: right;
+	    /*width: 35%;*/
+	    height: 200px;
+		width: 90%;
+	    
 	}
 	
-
-	@media (min-width: 768px) {
-		.home-page-list .thumbnail {
-			border: 0;
-		    float: right;
-		    /*width: 35%;*/
-		    height: 200px;
-		width: 90%;
-		    
-		}
-	}
 
 	.home-page-list .thumbnail {
 		border: 0;
 	    /*box-sizing: border-box;*/
-	    margin-bottom: 24px;
+	    margin-bottom: 50px;
 	    position: relative;
 	    max-width: 320px;
 	}
 
-	@media (min-width: 768px) {
-		.home-page-list .description {
-		    float: left;
-		    width: 40%;
-		}
+	
+	.home-page-list .description {
+	    float: left;
+	    width: 45%;
 	}
-
 	
 
 	.home-page-list .description h2 {
@@ -226,21 +237,17 @@ body {
 	    font-size: 26px;
 	}
 
-	@media (min-width: 768px) {
-		.home-page-list .metadata {
-		    float: left;
-		    width: 15%;
-		    
-		}
+	.home-page-list .metadata {
+	    float: left;
+	    width: 15%;
+	    
 	}
 
 	.home-page-list .metadata {
 	    font-size: 14px;
 	    line-height: 1.4em;
-	    
 	    font-style: italic;
 	}
-
 
 	.metadata .publishedDate {
 	    margin-right: 1em;
@@ -253,10 +260,6 @@ body {
 	.home-page-list .description p {
 		font-size: 16px;
 	}
-}
-
-
-.section-article hr {
 }
 
 
@@ -338,4 +341,15 @@ input:-webkit-autofill {
 
 .hljs-strong {
   font-weight: bold;
+}
+
+
+@media (max-width: 1080px) {
+	.home-article .post-preview .description p {
+		font-size: 16px;
+	}
+
+	.home-article .post-preview .description h2 {
+		font-size: 26px;
+	}
 }
