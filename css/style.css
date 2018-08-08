@@ -13,7 +13,7 @@ div {
 body {
 	/*font-family: "Computer Modern Sans", sans-serif;*/
 	font-weight: 200;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 /*.home-page-list .description {
@@ -215,7 +215,7 @@ body {
   .home-page-list .post-preview p {
     margin: 0 0 12px 0;
     line-height: 1.5em;
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 
@@ -289,7 +289,7 @@ body {
 	.home-page-list .post-preview .description {
 	    float: left;
 	    width: 40%;
-	    font-size: 16px;
+	    font-size: 17px;
 	}
 	
 
