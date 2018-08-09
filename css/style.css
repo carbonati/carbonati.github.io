@@ -10,10 +10,8 @@ div {
 }
 
 body {
-
 	/*font-family: Helvetica, Arial, sans-serif;*/	
 	font: 200 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
-	
 }
 
 
@@ -96,13 +94,7 @@ body {
 
 		margin-left: auto;
 	    margin-right: auto;
-	  height: 70px;
-	  
-	  
-	}
-	.tan-header .logo {
-		font-size: 23px;
-		font-weight: 200;
+	  	height: 70px	;
 	}
 
 	.tan-header .nav a {
@@ -126,8 +118,8 @@ body {
 
 		margin-left: auto;
 	    margin-right: auto;
-	  height: 70px;
-	  width: 900px;
+		  height: 70px;
+		  width: 900px;
 	  
 	}
 
@@ -136,14 +128,8 @@ body {
 		padding: 28px 0;
 	}
 
-	.tan-header .logo {
-		font-size: 23px;
-		font-weight: 200;
-	}
-
 	.tan-header .nav a {
  		font-size: 16px;
-
 	}
 
 }
@@ -472,3 +458,21 @@ input:-webkit-autofill {
     margin-bottom: 12px;
   }
 }*/
+
+
+
+.title-article {
+    grid-column: text;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.title-article p {
+	font-family: Helvetica Neue;
+	font-size: 16px;
+	font-weight: 200;
+}
+
+.title-article .pub-date p {
+	font-size:14px;
+}
