@@ -32,14 +32,15 @@ body {
 }
 
 @media (max-width: 500px) {
-	.tan-header .content {
+		.tan-header .content {
 
-	margin-left: auto;
-    margin-right: auto;
-  height: 70px;
-  padding-left:20px;
-  padding-right:20px;
-}
+			margin-left: auto;
+			margin-right: auto;
+			height: 70px;
+			padding-left:20px;
+			padding-right:20px;
+
+	}
 }
 
 @media (max-width: 1080px) and (min-width: 500px) {
@@ -76,13 +77,18 @@ body {
 
 
 .tan-header .logo {
-	font-size: 25px;
+	font-size: 23px;
 	font-weight: 200;
 }
 
+.tan-header .nav {
+  float: right;
+}
+
 .tan-header .nav a {
-	font-size: 16px;
- 	margin-left: 20px;
+	font-size: 15px;
+ 	margin-left:10px;
+
 }
 @media (min-width: 786px) {
 
@@ -95,7 +101,7 @@ body {
 	  
 	}
 	.tan-header .logo {
-		font-size: 25px;
+		font-size: 23px;
 		font-weight: 200;
 	}
 
@@ -131,20 +137,15 @@ body {
 	}
 
 	.tan-header .logo {
-		font-size: 25px;
+		font-size: 23px;
 		font-weight: 200;
 	}
 
 	.tan-header .nav a {
  		font-size: 16px;
- 		margin-left: 20px;
+
 	}
 
-}
-
-.tan-header .nav {
-  float: right;
-  font-weight: 300;
 }
 
 .home-page-list {
