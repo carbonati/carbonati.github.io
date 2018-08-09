@@ -169,17 +169,17 @@ body {
 
 @media(max-width: 768px) {
 		.home-page-list {
-	margin-left: 25px;
-    margin-right: 25px;
-}
+			margin-left: 25px;
+		    margin-right: 25px;
+		}
 }
 
 @media(min-width: 768px) {
   .home-page-list .description h2 {
-    font-size: 26px;
-    margin-top: 48px;
-    margin-bottom: 12px;
-  }
+		font-size: 26px;
+		margin-top: 48px;
+		margin-bottom: 12px;
+	}
 }
 
 .home-page-list .post-preview img {
@@ -267,7 +267,6 @@ body {
 
 	}
 
-
 	#bnn {
 		padding-bottom: 60px;
 	}
@@ -278,10 +277,8 @@ body {
 	    overflow: hidden;
 	    display: block;
 	    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
 	}
 
-	
 	.home-page-list {
 	    margin-top: 60px;
 	}	
