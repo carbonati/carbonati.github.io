@@ -3,7 +3,6 @@ html {
 	box-sizing: border-box;
 	overflow-x: hidden;
 	font-size: 24px;
-	
 }
 
 div {
@@ -11,22 +10,18 @@ div {
 }
 
 body {
-	/*font-family: "Computer Modern Sans", sans-serif;*/
-	font-family: Helvetica, Arial, sans-serif;	
-	font-weight: 200;
-	font-size: 16px;
+
+	/*font-family: Helvetica, Arial, sans-serif;*/	
+	font: 200 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+	
 }
 
-/*.home-page-list .description {
-	    float: left;
-	    
-	}*/
 
 .tan-header {
 	font-family: Helvetica Neue;	
     display: block;
     position: relative;
-    height: 100px;
+    height: 70px;
     background-color: #35424a;
     width: 100%;
     text-decoration: none;
@@ -36,12 +31,26 @@ body {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 
-.tan-header .content {
+@media (max-width: 500px) {
+	.tan-header .content {
 
 	margin-left: auto;
     margin-right: auto;
   height: 70px;
-  width: 748px;
+  padding-left:20px;
+  padding-right:20px;
+}
+}
+
+@media (max-width: 1080px) and (min-width: 500px) {
+	.tan-header .content {
+
+	margin-left: auto;
+    margin-right: auto;
+  height: 70px;
+  padding-left:70px;
+  padding-right:70px;
+}
 }
 
 .tan-header .l-page a:hover {
@@ -53,9 +62,10 @@ body {
 
 	color: rgba(255, 255, 255, 0.8);
 	font-size: 16px;
-	line-height: 100px;
+	
 	text-decoration: none;
-	padding: 22px 0;
+	line-height: 70px;
+		padding: 28px 0;
 }
 
 .home-page-list .thumbnail {
@@ -66,21 +76,53 @@ body {
 
 
 .tan-header .logo {
-	font-size: 45px;
+	font-size: 25px;
 	font-weight: 200;
-	margin-top:30px;
-	margin-bottom:5px;
 }
 
 .tan-header .nav a {
-	font-size: 26px;
-	margin-left: 20px;
+	font-size: 16px;
+ 	margin-left: 20px;
+}
+@media (min-width: 786px) {
+
+	.tan-header .content {
+
+		margin-left: auto;
+	    margin-right: auto;
+	  height: 70px;
+	  
+	  
+	}
+	.tan-header .logo {
+		font-size: 25px;
+		font-weight: 200;
+	}
+
+	.tan-header .nav a {
+		font-size: 16px;
+	 	margin-left: 20px;
+	}	
+
+	.tan-header a {
+		line-height: 70px;
+		padding: 28px 0;
+	}
 }
 
 @media(min-width: 1080px) {
   
 	.tan-header {
 		height: 70px;
+	}
+
+	.tan-header .content {
+
+		margin-left: auto;
+	    margin-right: auto;
+	  height: 70px;
+	  width: 900px;
+	  
 	}
 
 	.tan-header a {
@@ -130,8 +172,8 @@ body {
 }
 
 .home-page-list {
-	margin-left: 40px;
-    margin-right: 40px;
+	margin-left: 70px;
+    margin-right: 70px;
 }
 
 .home-page-list .post-preview .thumbnail {
