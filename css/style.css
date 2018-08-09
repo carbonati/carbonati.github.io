@@ -164,7 +164,7 @@ body {
     margin-bottom: 24px;
     position: relative;
     box-sizing: border-box;
-    max-width: 500px;
+    max-width: 450px;
 }
 
 @media(max-width: 768px) {
@@ -205,8 +205,8 @@ body {
 .home-page-list .post-preview h2 {
     margin: 0 0 6px 0;
     line-height: 1.2em;
-    font-style: bold;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 22px;
     
 }
 
