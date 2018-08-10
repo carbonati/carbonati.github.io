@@ -24,12 +24,15 @@
         </script> 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
+        <script src="../../js/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
 
         <style>
             
             
 
-            .blog-article h2,h3,h4 {
+            .blog-article h2,h3,h3 {
                 line-height: 1.25em;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 padding-bottom: .5em;
@@ -47,11 +50,12 @@
             }
 
 
-            .blog-article h2,h3,h4 {
+            .blog-article h2,h3,h3 {
                 line-height: 1.25em;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 padding-bottom: .5em;
             }
+
 
             .blog-article .network {
                 margin-left:auto;
@@ -66,30 +70,31 @@
                 grid-column: text;
                 text-align: center;
                 padding-top: 20px;
-            }
+                }
 
-            .blog-article {
-                margin-left: auto;
-                margin-right: auto;
-                width: 748px;
-                display:block;
-                font-family: Helvetica, Arial, sans-serif;
-            }
+                .blog-article {
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 748px;
+                    display:block;
+                    font-family: Helvetica, Arial, sans-serif;
+                }
 
 
-            .blog-article h2,h3,h4 {
-                line-height: 1.25em;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                padding-bottom: .5em;
-            }
+                .blog-article h2,h3,h3 {
+                    line-height: 1.25em;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    padding-bottom: .5em;
+                    padding-top: 10px;
+                }
 
-            .blog-article .network {
-                margin-left:auto;
-                margin-right:auto;
-                display:block;
-                width:100%;
-                height: 200px;
-            }
+                .blog-article .network {
+                    margin-left:auto;
+                    margin-right:auto;
+                    display:block;
+                    width:100%;
+                    height: 200px;
+                }
 
             }
         </style>
@@ -138,15 +143,15 @@
         <div class="blog-article">
 
             <p>
-                This walk-through covers much of the mathematics behind feedforward neural networks. For an interactive demo I would recommend checking out <a href="https://carbonati.github.io/posts/browsernn/">browserNN.js</a>.
-                <!-- This walk-through was greatly inspired by Ian Goodfellow and Yoshua Bengio's book, Deep Learning$^{[1]}$, and will be focusing primarily on the learned feature spaces from feedforward neural networks, along with the key mathematical tools used to describe them.  -->
+                <!-- This walk-through covers much of the mathematics behind feedforward neural networks.  -->
+                This walk-through was greatly inspired by Ian Goodfellow and Yoshua Bengio's book, Deep Learning$^{[1]}$, and will be focusing primarily on the learned feature spaces from feedforward neural networks, along with the key mathematical tools used to describe them. For an interactive demo I would recommend checking out <a href="https://carbonati.github.io/posts/browsernn/">browserNN.js</a>.
 
             </p>
 
             <h2>Introduction</h2>
 
             <p>
-                Feedforward neural networks, also known as multilayer perceptrons, are the building blocks of all deep learning models like convolutional and recurrent neural networks. However, if we want to understand how these more complex models work, we first need a strong grasp of whats going on under the hood in the simpler ones. While it is incredibly difficult to understand how neural networks with millions of neurons and many hidden layers are really behaving, they still perform in the same nature as a network with just 2 neurons and 1 hidden layer. Lucky for us it is rather easy to understand how neural networks behave in low-dimensions, and we can then extrapolate this intuition to much higher dimensions. At their core, feedforward neural networks are simiply function approximators. We have to imagine that if we are trying to classify some input data $x$, then there exists some function $f^*$ that maps our data perfectly as $y=f^*(x)$. The goal of a neural networks is to find (or approximate) that true $f^*$. Let's try to make this more concrete with an example.
+                Feedforward neural networks, also known as multilayer perceptrons, are the building blocks among all deep learning models like convolutional and recurrent neural networks. To have a deep understanding of how these more complex models work we must first need to start with understanding the simpler ones. While it is incredibly difficult to understand how neural networks with millions of neurons and many hidden layers are behaving, they still, in theory, perform in the same nature as a network with just 2 neurons and 1 hidden layer. Lucky for us it is rather easy to understand how neural networks behave in low-dimensions, which we can then extrapolate this intuition to significantly higher dimensions. At their core, feedforward neural networks are simiply function approximators. We have to imagine that if we are trying to classify some input data $x$ to some output $y$, then there exists some function $f^*$ that maps our data perfectly as $y=f^*(x)$. The goal of a neural networks is to find (or approximate) that true $f^*$. Let's try to make this more concrete with an example.
             </p>
 
             <h2> XOR case study </h2>
@@ -161,43 +166,50 @@
 
             <p>
                 
-               From the plot on the right we can see how these 2 classes are linearly inseperable, i.e. there is no way possible to fit a straight line that seperates the 1's from the 0's. However, there may exist some function $f^*$ that can solve this problem directly for us. We know that class 0 belongs to $\boldsymbol{x}=[0,0]$ and $\boldsymbol{x}=[1,1]$, while class 1 belongs to $\boldsymbol{x}=[1,0]$ and $\boldsymbol{x}=[0,1]$. If we define a function $f^*(t) = ||t| - \frac{1}{2}| - \frac{1}{2}$ with weights $\boldsymbol{w}=[1,-1]$, then its easy to see that $y = f^*(\boldsymbol{x}\boldsymbol{w}^T) \leq 0$ classifies class 0 correctly and $y=f^*(\boldsymbol{x}\boldsymbol{w}^T)> 0$ classifies class 1 correctly, where $\boldsymbol{x}\boldsymbol{w}^T$ denotes the dot product between the input $\boldsymbol{x}=[x_1,x_2]$ and weights $\boldsymbol{w}$. Great, we found our $f^*$ and the appropriate weights to solves the XOR problem, we can pack up our bags and call it a day!
+               From the plot on the right we can see how these 2 classes are linearly inseperable, i.e. there is no way possible to fit a straight line that seperates the 1's from the 0's, however, there may exist some function $f^*$ that can solve this problem directly for us. We know that class 0 belongs to $\boldsymbol{x}=[0,0]$ and $\boldsymbol{x}=[1,1]$, while class 1 belongs to $\boldsymbol{x}=[1,0]$ and $\boldsymbol{x}=[0,1]$. If we define a function $$f^*(t) = ||t| + \frac{1}{2}| - \frac{1}{2}$$ with weights $\boldsymbol{w}=[1,-1]$, we have the function approximator we need when we let $t=\boldsymbol{x}\boldsymbol{w}^T$ as,
+               $$ f^*([0,0][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
+               $$ f^*([1,1][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
+               $$ f^*([1,0][1,-1]^T)=||1|+\frac{1}{2}|-\frac{1}{2}=1 $$
+               $$ f^*([0,1][1,-1]^T)=||-1|+\frac{1}{2}|-\frac{1}{2}=1 $$
+
+                its easy to see that $y = f^*(\boldsymbol{x}\boldsymbol{w}^T) \leq 0$ classifies class 0 correctly and $y=f^*(\boldsymbol{x}\boldsymbol{w}^T)> 0$ classifies class 1 correctly, where $\boldsymbol{x}\boldsymbol{w}^T$ denotes the dot product between the input $\boldsymbol{x}=[x_1,x_2]$ and weights $\boldsymbol{w}$. Great, we found our $f^*$ and the appropriate weights to solves the XOR problem, we can pack up our bags and call it a day!
                <br><br>
-               Unfortunately, we can almost never explicitly define a function $f^*$ that perfectly describes our data, especially when it is non-linear (like most real world data). We need a generalizable approach that can learn any function $f^*$ that describes our data whether it is clasifying images, recognizing speach, or even just solving the XOR problem. Let's try to understand how a neural network goes about solving this. It's also important to note that the $f^*$ used above to solve the XOR problem is not unique and neither are the weights, this was just for proof by example.  
+               Unfortunately, we can almost never explicitly define a function $f^*$ that perfectly describes our data. We need a generalizable approach that can learn some function $f^*$ whether we're clasifying images, recognizing speach, or even just solving the XOR problem. Let's first try to understand how a neural network creates their own $f^*$. It's also important to note that the $f^*$ used above to solve the XOR problem is not unique and neither are the weights, this was simply for proof by example.  
 
             </p>
 
-            <h4>Linear Model</h4>
+            <h3>Linear Model</h3>
 
             <p>
-               Let's set this up as an ordinary machine learning problem and start with a linear model, then build our way up from there. We have our input data $\{[0,0]^T, [1,0]^T, [0,1]^T, [1,1]^T\}$ and our output we're trying to predict $y = \{0,1,1,0\}$. We'll define our model with the function $y=f(\boldsymbol{x};\boldsymbol{\theta})$, which is just a fancy way of writing "$f$ is a function of our data $\boldsymbol{x}$, parameterized by $\boldsymbol{\theta}$", or i.e. we're going to learn the parameters $\boldsymbol{\theta}$ that allow our $f$ to be as arbitrarily close to the desired $f^*$. For illustration we'll first start with a simple linear model defined as $$f(\boldsymbol{x};\boldsymbol{w},b) = \boldsymbol{x}^T\boldsymbol{w}+b$$ where our parameter $\theta$ consists of a weight vector $\boldsymbol{w}$ and an intercept scalar $b$. 
+               Let's set this up as an ordinary machine learning problem and start with a linear model, then build our way up from there. We have our input data $\boldsymbol{X}=\{[0,0]^T, [1,0]^T, [0,1]^T, [1,1]^T\}$ and our output we're trying to predict $y = \{0,1,1,0\}$. We'll define our model with the function $y=f(\boldsymbol{X};\boldsymbol{\theta})$, which is just a fancy way of writing " $f$ is a function of our data $\boldsymbol{X}$, parameterized by $\boldsymbol{\theta}$ ", or i.e. we're going to learn the parameters $\boldsymbol{\theta}$ that allow our $f$ to be as arbitrarily close to the desired $f^*$. For illustration we'll first start with a simple linear model defined as $$f(\boldsymbol{X};\boldsymbol{w},b) = \boldsymbol{X}^T\boldsymbol{w}+b$$ where our parameter $\theta$ consists of a weight vector $\boldsymbol{w}$ and an intercept scalar $b$. 
             </p>
 
-            <h4>Loss Function </h4>
+            <h3>Loss Function </h3>
 
             <p>
-                Now that we have our model defined we'll need a loss function to tell us how our model is performing. Remember that in machine learning our goal is to minimize our loss function $J$, so another way to think about this is that if we minimize $J$ then we have hopefully modeled the correct $f^*$ that describes our data. For simplicity we'll treat this like a regression problem (even though we're performing classification) and use a mean squared error loss function. By definition the MSE takes on the form $$J(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=1}^n(y_i-\hat{y}_i)^2 = \frac{1}{4}\sum_{x}(\boldsymbol{y}-(\boldsymbol{X}^T\boldsymbol{w}+b))^2$$ 
+                Now that we have our model defined we'll need a loss function to tell us how our model is performing. Remember that in machine learning our goal is to minimize our loss function $J$, so another way to think about this is that if we minimize $J$ then we have hopefully modeled the correct $f^*$ that describes our data. For simplicity we'll treat this like a regression problem (even though we're performing classification) and use a mean squared error loss function. By definition the MSE takes on the form $$J(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=1}^n(\boldsymbol{y_i}-\boldsymbol{\hat{y}_i})^2 = \frac{1}{4}\sum_{x}(\boldsymbol{y}-(\boldsymbol{X}^T\boldsymbol{w}+b))^2$$ 
 
-                We can actually minimize $J(\boldsymbol{\theta})$ analytically with respect to $\boldsymbol{w}$ and $b$ using the normal equations. Recall that the normal equation gives us the optimal parameters as $\boldsymbol{\theta}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}\boldsymbol{y}$, which we can easily compute in python using numpy
+                We can actually minimize $J(\boldsymbol{\theta})$ analytically with respect to $\boldsymbol{w}$ and $b$ using the normal equation. The normal equation is simply a closed form solution used to find optimal parameters of a linear model as $\boldsymbol{\theta}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}\boldsymbol{y}$, which we can easily compute in python using numpy
 
-            </p>
+            </p><br>
 
-            <pre><code class="python">X = np.array([[1,0,0],[1,1,0],[1,0,1],[1,1,1]]) # 1st column full of 1's for our intercept b
+            <pre style="border: solid 1px #e1e4e5; padding: 4px; background-color:#FFFBFB;"><code class="python">X = np.array([[1,0,0],[1,1,0],[1,0,1],[1,1,1]]) # 1st column full of 1's for our intercept b
 y = np.array([0,1,1,0])
 x_dot_x_inv = np.linalg.inv(np.dot(X.transpose(),X))
 x_inv_dot_x = np.dot(x_dot_x_inv, x.transpose())
-theta = np.dot(x_inv_dot_x,y)</code></pre>
+theta = np.dot(x_inv_dot_x,y)</code></pre><br>
 
             <p>
                 The normal equation gives us $\boldsymbol{w}=\boldsymbol{0}$ and $b=\frac{1}{2}$ as the parameters that minimize our function $f$, i.e. these are the best parameters our model can find, which gives a simple output of 0.5 for each input. This would give us a MSE of 0.25, or in the context of classification the best we can do is perform at 50% accuracy (if we say all $\hat{y}\leq$ 0.5 belongs to class 0 or $\hat{y}>$ 0 belongs to class 1 we'll never predict greater than 50% accuracy). Time to move onto a more complex model. 
             </p>
 
-            <h4>Feedforward Neural Networks</h4>
+            <h3>Feedforward Neural Networks</h3>
 
             <p>
                 Now lets see how a feedforward neural network handles the XOR problem. We'll take it step by step. Let's first take a look at our models structure
             </p>
-            
+
+            <br>
             <div class="row">
                 
                 <div class="col-sm-6">
@@ -207,6 +219,7 @@ theta = np.dot(x_inv_dot_x,y)</code></pre>
                     <img src="./img/ffnn.png" style="width:300px; padding-bottom: 20px">
                 </div>
             </div>
+            <br>
         
            
             <p>
@@ -217,7 +230,7 @@ theta = np.dot(x_inv_dot_x,y)</code></pre>
 
             </p>
             
-            <h4> ReLU </h4>
+            <h3> ReLU </h3>
 
             <p>
                 With linear models we typically use a weight vector $\boldsymbol{w}$ and a scalar bias parameter $b$ to linearly map the input vector $\boldsymbol{x}$ to an output scalar $y$, simple enough. Instead to compute hidden layers like $\boldsymbol{h}$ in feedforward neural networks we also compute a linear transformation between our input vector $\boldsymbol{x}$ and some learned parameters $\boldsymbol{W}$ and add a bias vector $\boldsymbol{c}$, <i>then</i> apply a nonlinear function $g$ to each element of our hidden layer. If that was a bit confusing we'll make it a bit more explicit. We'll define our hidden layer as $\boldsymbol{h}=g(\boldsymbol{W}^T\boldsymbol{x}+\boldsymbol{c})$, where $g$ is referred to as an <b>activation function</b> in deep learning. The most commonly used nonlinear function $g$ is the rectified linear unit, also known as ReLU (Jarrettet al., 2009; Nair and Hinton, 2010)$^{[2]}$. ReLU is defined as $$g(z)=\max(0,z)$$
