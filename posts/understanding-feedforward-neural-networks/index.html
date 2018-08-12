@@ -168,9 +168,9 @@
                 
                From the plot on the right we can see how these 2 classes are linearly inseperable, i.e. there is no way possible to fit a straight line that seperates the 1's from the 0's, however, there may exist some function $f^*$ that can solve this problem directly for us. We know that class 0 belongs to $\boldsymbol{x}=[0,0]$ and $\boldsymbol{x}=[1,1]$, while class 1 belongs to $\boldsymbol{x}=[1,0]$ and $\boldsymbol{x}=[0,1]$. If we define a function $$f^*(t) = ||t| + \frac{1}{2}| - \frac{1}{2}$$ with weights $\boldsymbol{w}=[1,-1]$, we have the function approximator we need when we let $t=\boldsymbol{x}\boldsymbol{w}^T$ as,
                $$ f^*([0,0][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
-               $$ f^*([1,1][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
                $$ f^*([1,0][1,-1]^T)=||1|+\frac{1}{2}|-\frac{1}{2}=1 $$
                $$ f^*([0,1][1,-1]^T)=||-1|+\frac{1}{2}|-\frac{1}{2}=1 $$
+               $$ f^*([1,1][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
 
                 its easy to see that $y = f^*(\boldsymbol{x}\boldsymbol{w}^T) \leq 0$ classifies class 0 correctly and $y=f^*(\boldsymbol{x}\boldsymbol{w}^T)> 0$ classifies class 1 correctly, where $\boldsymbol{x}\boldsymbol{w}^T$ denotes the dot product between the input $\boldsymbol{x}=[x_1,x_2]$ and weights $\boldsymbol{w}$. Great, we found our $f^*$ and the appropriate weights to solves the XOR problem, we can pack up our bags and call it a day!
                <br><br>
@@ -193,7 +193,10 @@
 
             </p><br>
 
-            <pre style="border: solid 1px #e1e4e5; padding: 4px; background-color:#FFFBFB;"><code class="python">X = np.array([[1,0,0],[1,1,0],[1,0,1],[1,1,1]]) # 1st column full of 1's for our intercept b
+            <pre style="border: solid 1px #e1e4e5; padding: 4px; background-color:#FFFBFB;"><code class="python">X = np.array([[1,0,0],
+              [1,1,0],
+              [1,0,1],
+              [1,1,1]]) # 1st column full of 1's for our intercept b
 y = np.array([0,1,1,0])
 x_dot_x_inv = np.linalg.inv(np.dot(X.transpose(),X))
 x_inv_dot_x = np.dot(x_dot_x_inv, x.transpose())
@@ -274,9 +277,10 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
             <p>
 
 
-                Hopefully this gives you a strong intuition for whats going on under the hood of feedforward neural networks. Recall that our ultimate goal is to approximate some $f^*$ that perfectly describes the data. Our network was able to do this by learning a new feature space from our hidden layer with $f^{(1)}$, which then allowed us to fit a line on with $f^{(2)}$, which was able to accurately predicted each class. While in this specific example, we provided all the weights that were at global minimum for our loss function, however, in a real world problem we're never given the perfect weights to solve our problem, so the name of the game becomes learning what those model parameters $\boldsymbol{W}$ and $\boldsymbol{w}$ should be. We also typically have millions of parameters and multiple hidden layers to optimize for, so doing something like guessing weights just isn't going to work. 
+                Hopefully this helped you gain a stronger intuition on what is going on under the hood of feedforward neural networks. Recall that our ultimate goal is to approximate some $f^*$ that perfectly describes the data. Our network was able to do this by learning a new feature space from our hidden layer with $f^{(1)}$, which then allowed us to fit a straight line using $f^{(2)}$ to accurately predict each class. While in this specific example we provided the weights that helped our loss function reach global minimum , we typically 
+                never know the exact weights to use when using real world data. Our objective is then to learn what those model parameters, $\boldsymbol{\theta}$, should be in order to minimize our loss function. We also typically have millions of parameters and multiple hidden layers to optimize for, thus guessing weights is not an effective technique to approximate $f^*$. This is why gradient descent is used. 
                 <br><br>
-                It's also important to note that in our XOR solution our weights had nice integer values, which is almost never the case for most solutions, this was simply for illustration. Now that we have a better sense of what neural networks are really trying to acheive with nonlinear data we can ask our next question, how can we always find the perfect weights that gives us the right $f^*$? A more formal way of asking this is∂, how do we find the optimal weights that minimize our loss function?
+                It's also important to note that in our XOR solution our weights had nice integer values, which is almost never the case for most solutions. This was simply for illustration. <!-- Now that we have a better sense of what neural networks are really trying to acheive with nonlinear data we can ask our next question, how can we always find the perfect weights that gives us the right $f^*$? A more formal way of asking this is∂, how do we find the optimal weights that minimize our loss function? -->
             </p>
 
         </div>
