@@ -93,20 +93,50 @@
 			}
 
 			.canvas-article {
-				display:block;
-				width: 900px;
+				
 				margin-right: auto;
 				margin-left: auto;
+				display:block;
 				margin-top:-15px;
 				float:center;
 				font-weight: 400;
 			}
-			.canvas-article .pane {
-			 	width: 425px;
-			 	display: inline-block;
-			 	padding: 15px;
-			 	vertical-align: top;
+
+			.canvas-article .panes {
+				margin-right: auto;
+				margin-left: auto;
+				display:block;
+				width: 450px;
+				padding-left: 5px;
+				
+				float:center;
+
 			}
+			.canvas-article .pane {
+			 	width: 100%;
+			 	float:center;
+			 	
+			 	padding: 15px;
+			 	
+			}
+
+
+			@media (min-width: 900px) {
+				.canvas-article .panes {
+					margin-left: auto;
+					margin-right: auto;
+					display: block;
+					width: 900px;
+				}
+
+				.canvas-article .pane {
+				 	width: 425px;
+				 	display: inline-block;
+				 	
+				 	vertical-align: top;
+				}
+			}
+
 
 			.blog-article .button-refresh {
 				font-family:  Avenir Next;
@@ -220,6 +250,16 @@
 				font-size: 20px;
 			}
 
+			.data-menu {
+				width: 100px;
+			}
+
+			.data-menu {
+				margin-left: auto;
+				margin-right: auto;
+				padding-left: 15px;
+				display: inline;
+			}
 		
 		</style>
 	
@@ -260,6 +300,7 @@
 			}	
 
 			
+			
 		</style>
 
 		<div class="title-article">		
@@ -296,7 +337,7 @@
 				<div class="pane">
 					<canvas class="classify-canvas" width="400" height="400">Web browser not supported. Try google chrome :)</canvas>
 					<div class="row">
-						<div id="data-options">
+						<div class="data-options">
 						</div>
 					</div>
 				</div>

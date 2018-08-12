@@ -167,11 +167,12 @@ var dataSets = [
 
 function dataTiles() {
 	
-	var dataOptions = d3.select('#data-options');
+	var dataOptions = d3.select('.data-options');
 	
 	dataSets.forEach(function(d,i) {
 		dataOptions.append('div')
-			.classed('col-sm-2',true)
+			// .classed('col-sm-2',true)
+			.classed('data-menu',true)
 			.append('img').attr('id', 'data-set')
 			.attr('src', d.src)
 			.attr('width', 60)
