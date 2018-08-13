@@ -24,7 +24,7 @@ trainer = new browsernn.Trainer(model, layers, params); \n\
 
 var ss = 50.0; // scaling -- thank you andrej
 var data, labels, N;
-var layer_idx = 4; 
+var layer_idx = 2; 
 var neuron0 = 0;
 var neuron1 = 1;
 
