@@ -197,9 +197,9 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 		}
 
 		this.biases = new Tensor(1, this.n_neurons, 1, bias);
-
-	
 	}
+
+
 
 	DenseLayer.prototype = {
 		forward: function(tensor, trainable) {
@@ -284,13 +284,13 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 		this.out_n = params.in_n;
 		this.out_d = params.in_d;
 		this.out_depth = params.in_depth;
-		this.layer_type = 'linear'
+		this.layer_type = 'linear';
 	}
 
 	LinearLayer.prototype = {
 		forward: function(tensor, trainable) {
 			// args:
-				// tensor: tensor holding data from the previous layer (z)
+				// tensor: tensor holding data from the previous (dense) layer
 				// trainable: (boolean) whether the model is training or predicting
 
 			// returns:
@@ -412,7 +412,7 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 	SigmoidLayer.prototype = {
 		forward: function(tensor, trainable) {
 			// args:
-				// tensor: tensor holding data from the previous layer (z)
+				// tensor: tensor holding data from the previous (dense) layer
 				// trainable: (boolean) whether the model is training or predicting
 
 			// returns:
@@ -472,7 +472,7 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 	TanhLayer.prototype = {
 		forward: function(tensor, trainable) {
 			// args:
-				// tensor: tensor holding data from the previous layer (z)
+				// tensor: tensor holding data from the previous (dense) layer
 				// trainable: (boolean) whether the model is training or predicting
 
 			// returns:
@@ -504,6 +504,81 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 			for (var i=0; i<N; i++) {
 				var h_i = h.w[i];
 				z.dw[i] = (1.0 - (h_i * h_i)) * h.dw[i];
+			}
+		},
+
+		getParamsAndGrads: function() {
+			return [];
+		}
+	}
+
+	var DropoutLayer = function(params) {
+		// args:
+			// params: hyper parameters from the previous layer
+
+		// returns:
+			// instantiated dropout layer
+		
+		var params = params || {};
+
+		this.out_n = params.in_n;
+		this.out_d = params.in_d;
+		this.out_depth = params.in_depth;
+
+		// default dropout probability to 0.5
+		this.drop_prob = typeof params.drop_prob != 'undefined' ? params.drop_prob : 0.5;
+		this.dropped = zeros(this.out_n * this.out_d * this.out_depth);
+		this.layer_type = 'dropout';
+	}
+
+	DropoutLayer.prototype = {
+		forward: function(tensor, trainable, seed) {
+			// args:
+				// tensor: tensor holding data from the previous (activation) layer
+				// trainable: (boolean) whether the model is training or predicting
+
+			// returns:
+				// tensor after applying dropout to the previousl layers weights
+
+			this.in_units = tensor;
+			if(typeof trainable == 'undefined') trainable = false;
+
+			var output = new Tensor(this.out_n, this.out_d, this.out_depth, 0.0);
+			var N = tensor.w.length;
+			if(trainable) {
+				for (var i=0; i<N; i++) {
+					if (Math.random(seed) < this.drop_prob) {
+						output.w[i] = 0;
+						this.dropped[i] = true
+					} else {
+						output.w[i] = this.in_units.w[i];
+						this.dropped[i] = false
+					}
+				}
+			} else {
+				for (var i=0; i<N; i++) {
+					// scaling activations when predicting
+					output.w[i] = this.in_units.w[i] * this.drop_prob;
+					
+				}
+			}
+
+			this.out_units = output;
+			return this.out_units;
+		},
+
+		backward: function() {
+			var h = this.in_units;
+			var chain_grad = this.out_units;
+			var N = h.w.length;
+
+			h.dw = zeros(N);
+			for (var i=0; i<N; i++) {
+				// if the value was not dropped pass in the gradient from the previous layer
+				// otherwise leave the gradient 0'd out
+				if(!(this.dropped[i])) {
+					h.dw[i] = chain_grad.dw[i];
+				}
 			}
 		},
 
@@ -644,10 +719,13 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 						}
 					}
 
-					if ((typeof layer.drop_prob != 'undefined') && (layer.type == 'dropout')) {
+					if ((typeof layer.drop_prob != 'undefined')) {
 						all_layers.push({type: 'dropout', drop_prob: layer.drop_prob})
 					}
+
+					
 				}
+
 				return all_layers;
 			}
 
@@ -687,7 +765,7 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 		// forward propogation
 		forward: function(tensor, trainable) {
 			// args:
-				// tensor: 
+				// tensor: tensor holding weights from the previous layer
 				// trainable: (boolean) true if training - false if predicting
 			
 			
@@ -766,6 +844,7 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 		
 		model.createLayers(layers, this.seed);
 
+
 	}	
 
 
@@ -777,7 +856,6 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 
 			// returns:
 				// Trains the model for 1 full epoch then returns an object containing meta data with the loss and cost metrics
-
 
 			var start_dt = new Date().getTime();
 			this.model.forward(x, true); // propagate the network forward 
@@ -879,6 +957,7 @@ var browsernn = browsernn || {VERSION: '1.0.0'};
 	global.SigmoidLayer = SigmoidLayer;
 	global.TanhLayer = TanhLayer;
 	global.ReluLayer = ReluLayer;
+	global.DropoutLayer = DropoutLayer;
 	global.SoftmaxLayer = SoftmaxLayer;
 	global.Model = Model;
 	global.Trainer = Trainer;

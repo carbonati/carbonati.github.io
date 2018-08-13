@@ -30,7 +30,7 @@ var neuron1 = 1;
 
 
 function neuronStr() {
-	layer_str = model.layers[layer_idx].layer_type;	
+	layer_str = model.layers[layer_idx].layer_type;
 	layer_num = layer_n_map[layer_idx];
 	layer_type = layer_str == "dense" || layer_str == "softmax" ? "$\\boldsymbol{z}$" : "$\\boldsymbol{h}$";
 	if (layer_str == 'dense') {
@@ -79,7 +79,7 @@ function refresh() {
 	d3.select('#cycle-weights')
 		.text(neuron_str);
 
-
+	
 	var select = d3.select('.layer-menu')
 		  .html("")
 		  .append('select')
@@ -135,7 +135,6 @@ function drawPoint(ctxx, x, y, r) {
 function draw(rep) {
 	
 	ctx.clearRect(0,0,WIDTH,HEIGHT);
-
 	
 	var stride = 3;
     var gridstep = 5;
@@ -150,6 +149,7 @@ function draw(rep) {
 			// scaling the input for the canvas
 			netx.w[0] = (x-WIDTH/2)/ss;
 			netx.w[1] = (y-HEIGHT/2)/ss;
+			
 			var a = model.forward(netx, false);
 
 			if(a.w[0] < a.w[1]) {
@@ -163,7 +163,6 @@ function draw(rep) {
 			tmp+=1;
 			if(cx%gridstep == 0 && cy%gridstep == 0) {
 				// pull the learned weights from the layer selected (layer_idx)
-
 				var xt = model.layers[layer_idx].out_units.w[neuron0];
 				var yt = model.layers[layer_idx].out_units.w[neuron1];
 				gridx.push(xt);
