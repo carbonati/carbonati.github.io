@@ -143,7 +143,7 @@
 				font-size: 16px;
 				font-weight:500;
 				font-style:italic;
-				display: block;
+				display: inline-block;
 				margin: 0;
 			}
 
@@ -152,6 +152,15 @@
 				border: 1px solid rgba(1, 0, 0, 0.2);
 				color: #000;
 			  	opacity: 1;
+			}
+
+			.blog-article .button-hint {
+				font-family:  Avenir Next;
+				font-size: 13px;
+				font-weight:500;
+				font-style:italic;
+				display: inline-block;
+				margin: 0;
 			}
 
 
@@ -321,13 +330,15 @@
        		<h2>Introduction</h2>
 
 			Inspired by Keras, Andrej Karpathy, and dynet, browserNN.js allows you to train deep neural networks in your own browser. The demo below offers 2D datasets (left canvas) to train neural networks on. The canvas on the right visualizes the transformed feature space of 2 neurons at a given layer in the network. You can make changes to the code below to train different networks and hyperparameters. You can also choose to visualize different layers using the dropdown box under the right canvas. Documentation on how the library works is below. Have fun!
+			<!--<br><br>P.S. click the <i>Retrain model</i> button to watch a network learn :)-->
 			</p>
 
 			<h2>Demo</h2>
 			<br>
 			<textarea class="network"></textarea><br>
-			<input class="button-refresh" type="submit" value="Retrain model" onclick="refresh();"><br>
-
+			<input class="button-refresh" value="Retrain model" type="button" onclick="refresh();"> 
+			<label class="button-hint"> &#x2190; click to retrain the neural network from start</label>
+			<br><br>
 		</div>
 			
 		<div class="canvas-article">				
