@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Understanding Feedforward Neural Networks</title>
-        
+
         <meta name="viewport" content="width-device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- <link rel="stylesheet" href="../../css/style.css"> -->
@@ -10,7 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        
+
 
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
@@ -21,7 +21,7 @@
               TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
               messageStyle: "none"
             });
-        </script> 
+        </script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
         <script src="../../js/highlight.pack.js"></script>
@@ -29,8 +29,8 @@
 
 
         <style>
-            
-            
+
+
 
             .blog-article h2,h3,h3 {
                 line-height: 1.25em;
@@ -98,11 +98,11 @@
 
             }
         </style>
-          
+
     </head>
 
     <body>
-        
+
         <script src="../../js/header.js"></script>
         <link rel="stylesheet" href="../../css/style.css">
         <style>
@@ -123,18 +123,18 @@
                     width: 748px;
                     padding-left: 0;
                     padding-right: 0;
-                    
+
                 }
-            }   
+            }
         </style>
 
-        <div class="title-article">     
+        <div class="title-article">
 
             <h1>Understanding Feedforward Neural Networks</h1>
             <p>A walk-through of feedforward neural networks using the XOR problem.</p>
 
             <div class = "pub-date">
-                <p><em>Dec. 28, 2017</em></p>
+                <p><em>Dec. 28, 2016</em></p>
             </div>
 
             <hr>
@@ -165,7 +165,7 @@
             <div class="col-sm-8"><img src="./img/xor-original-plot-01.png" height="300" class="img-responsive text-center" style="padding-bottom: 20px"/></div>
 
             <p>
-                
+
                From the plot on the right we can see how these 2 classes are linearly inseperable, i.e. there is no way possible to fit a straight line that seperates the 1's from the 0's, however, there may exist some function $f^*$ that can solve this problem directly for us. We know that class 0 belongs to $\boldsymbol{x}=[0,0]$ and $\boldsymbol{x}=[1,1]$, while class 1 belongs to $\boldsymbol{x}=[1,0]$ and $\boldsymbol{x}=[0,1]$. If we define a function $$f^*(t) = ||t| + \frac{1}{2}| - \frac{1}{2}$$ with weights $\boldsymbol{w}=[1,-1]$, we have the function approximator we need when we let $t=\boldsymbol{x}\boldsymbol{w}^T$ as,
                $$ f^*([0,0][1,-1]^T)=||0|+\frac{1}{2}|-\frac{1}{2}=0 $$
                $$ f^*([1,0][1,-1]^T)=||1|+\frac{1}{2}|-\frac{1}{2}=1 $$
@@ -174,20 +174,20 @@
 
                 its easy to see that $y = f^*(\boldsymbol{x}\boldsymbol{w}^T) \leq 0$ classifies class 0 correctly and $y=f^*(\boldsymbol{x}\boldsymbol{w}^T)> 0$ classifies class 1 correctly, where $\boldsymbol{x}\boldsymbol{w}^T$ denotes the dot product between the input $\boldsymbol{x}=[x_1,x_2]$ and weights $\boldsymbol{w}$. Great, we found our $f^*$ and the appropriate weights to solves the XOR problem, we can pack up our bags and call it a day!
                <br><br>
-               Unfortunately, we can almost never explicitly define a function $f^*$ that perfectly describes our data. We need a generalizable approach that can learn some function $f^*$ whether we're clasifying images, recognizing speach, or even just solving the XOR problem. Let's first try to understand how a neural network creates their own $f^*$. It's also important to note that the $f^*$ used above to solve the XOR problem is not unique and neither are the weights, this was simply for proof by example.  
+               Unfortunately, we can almost never explicitly define a function $f^*$ that perfectly describes our data. We need a generalizable approach that can learn some function $f^*$ whether we're clasifying images, recognizing speach, or even just solving the XOR problem. Let's first try to understand how a neural network creates their own $f^*$. It's also important to note that the $f^*$ used above to solve the XOR problem is not unique and neither are the weights, this was simply for proof by example.
 
             </p>
 
             <h3>Linear Model</h3>
 
             <p>
-               Let's set this up as an ordinary machine learning problem and start with a linear model, then build our way up from there. We have our input data $\boldsymbol{X}=\{[0,0]^T, [1,0]^T, [0,1]^T, [1,1]^T\}$ and our output we're trying to predict $y = \{0,1,1,0\}$. We'll define our model with the function $y=f(\boldsymbol{X};\boldsymbol{\theta})$, which is just a fancy way of writing " $f$ is a function of our data $\boldsymbol{X}$, parameterized by $\boldsymbol{\theta}$ ", or i.e. we're going to learn the parameters $\boldsymbol{\theta}$ that allow our $f$ to be as arbitrarily close to the desired $f^*$. For illustration we'll first start with a simple linear model defined as $$f(\boldsymbol{X};\boldsymbol{w},b) = \boldsymbol{X}^T\boldsymbol{w}+b$$ where our parameter $\theta$ consists of a weight vector $\boldsymbol{w}$ and an intercept scalar $b$. 
+               Let's set this up as an ordinary machine learning problem and start with a linear model, then build our way up from there. We have our input data $\boldsymbol{X}=\{[0,0]^T, [1,0]^T, [0,1]^T, [1,1]^T\}$ and our output we're trying to predict $y = \{0,1,1,0\}$. We'll define our model with the function $y=f(\boldsymbol{X};\boldsymbol{\theta})$, which is just a fancy way of writing " $f$ is a function of our data $\boldsymbol{X}$, parameterized by $\boldsymbol{\theta}$ ", or i.e. we're going to learn the parameters $\boldsymbol{\theta}$ that allow our $f$ to be as arbitrarily close to the desired $f^*$. For illustration we'll first start with a simple linear model defined as $$f(\boldsymbol{X};\boldsymbol{w},b) = \boldsymbol{X}^T\boldsymbol{w}+b$$ where our parameter $\theta$ consists of a weight vector $\boldsymbol{w}$ and an intercept scalar $b$.
             </p>
 
             <h3>Loss Function </h3>
 
             <p>
-                Now that we have our model defined we'll need a loss function to tell us how our model is performing. Remember that in machine learning our goal is to minimize our loss function $J$, so another way to think about this is that if we minimize $J$ then we have hopefully modeled the correct $f^*$ that describes our data. For simplicity we'll treat this like a regression problem (even though we're performing classification) and use a mean squared error loss function. By definition the MSE takes on the form $$J(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=1}^n(\boldsymbol{y_i}-\boldsymbol{\hat{y}_i})^2 = \frac{1}{4}\sum_{x}(\boldsymbol{y}-(\boldsymbol{X}^T\boldsymbol{w}+b))^2$$ 
+                Now that we have our model defined we'll need a loss function to tell us how our model is performing. Remember that in machine learning our goal is to minimize our loss function $J$, so another way to think about this is that if we minimize $J$ then we have hopefully modeled the correct $f^*$ that describes our data. For simplicity we'll treat this like a regression problem (even though we're performing classification) and use a mean squared error loss function. By definition the MSE takes on the form $$J(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=1}^n(\boldsymbol{y_i}-\boldsymbol{\hat{y}_i})^2 = \frac{1}{4}\sum_{x}(\boldsymbol{y}-(\boldsymbol{X}^T\boldsymbol{w}+b))^2$$
 
                 We can actually minimize $J(\boldsymbol{\theta})$ analytically with respect to $\boldsymbol{w}$ and $b$ using the normal equation. The normal equation is simply a closed form solution used to find optimal parameters of a linear model as $\boldsymbol{\theta}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}\boldsymbol{y}$, which we can easily compute in python using numpy
 
@@ -203,7 +203,7 @@ x_inv_dot_x = np.dot(x_dot_x_inv, x.transpose())
 theta = np.dot(x_inv_dot_x,y)</code></pre><br>
 
             <p>
-                The normal equation gives us $\boldsymbol{w}=\boldsymbol{0}$ and $b=\frac{1}{2}$ as the parameters that minimize our function $f$, i.e. these are the best parameters our model can find, which gives a simple output of 0.5 for each input. This would give us a MSE of 0.25, or in the context of classification the best we can do is perform at 50% accuracy (if we say all $\hat{y}\leq$ 0.5 belongs to class 0 or $\hat{y}>$ 0 belongs to class 1 we'll never predict greater than 50% accuracy). Time to move onto a more complex model. 
+                The normal equation gives us $\boldsymbol{w}=\boldsymbol{0}$ and $b=\frac{1}{2}$ as the parameters that minimize our function $f$, i.e. these are the best parameters our model can find, which gives a simple output of 0.5 for each input. This would give us a MSE of 0.25, or in the context of classification the best we can do is perform at 50% accuracy (if we say all $\hat{y}\leq$ 0.5 belongs to class 0 or $\hat{y}>$ 0 belongs to class 1 we'll never predict greater than 50% accuracy). Time to move onto a more complex model.
             </p>
 
             <h3>Feedforward Neural Networks</h3>
@@ -214,7 +214,7 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
 
             <br>
             <div class="row">
-                
+
                 <div class="col-sm-6">
                     <img src="./img/mlp-unweighted.png" style="margin-top:15%; width: 300px">
                 </div>
@@ -223,8 +223,8 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
                 </div>
             </div>
             <br>
-        
-           
+
+
             <p>
 
                 The two images above are showing the same network. The conventional network on the left is drawn for simplicity, however, we will be focusing on the right diagram, which labels each weight connected between nodes and includes the bias terms as well. Notice this network has a hidden layer $\boldsymbol{h}$ between the input $\boldsymbol{x}$ and the output $y$, which is computed as $\boldsymbol{h}=f^{(1)}(\boldsymbol{x};\boldsymbol{W},\boldsymbol{c})$, where $\boldsymbol{W}$ is a weight matrix that describes the mapping from $\boldsymbol{x}$ to $\boldsymbol{h}$. We'll then use $\boldsymbol{h}$ to compute the output $y=f^{(2)}(\boldsymbol{h};\boldsymbol{w},b)$, where $\boldsymbol{w}$ is a vector that describes the mapping from $\boldsymbol{h}$ to $y$. Before we define what function to use for $f^{(1)}$, let's first define that the output layer $f^{(2)}$ will still act as a linear model, but with $\boldsymbol{h}$ as its input instead of $\boldsymbol{x}$. This means that if we make $f^{(1)}$ linear as well, then our whole model will just be a linear function, which we know is incapable of solving the XOR problem. The question we must ask is, what function should we use for $f^{(1)}$?
@@ -232,7 +232,7 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
                 Our goal is to use a function that transforms our features into a new space that can actually allow us to linearly seperate the 2 classes. Before we pick a specific function we need to take a step back and notice that the network we are modeling is simply a composition of functions, where $\boldsymbol{h}=f^{(1)}(\boldsymbol{x};\boldsymbol{W},\boldsymbol{c})$ and $y=f^{(2)}(\boldsymbol{h};\boldsymbol{w},b)$, which can together be expressed as $f(\boldsymbol{x};\boldsymbol{W},\boldsymbol{w},\boldsymbol{c},b)=f^{(2)}(f^{(1)}(\boldsymbol{x}))$. Therefore, if we suppose our intercept terms $\boldsymbol{c}=0$ and $b=0$ we have, $f^{(1)}(x)=\boldsymbol{W}^T\boldsymbol{x}=\boldsymbol{h}$ and $f^{(2)}(\boldsymbol{h})=\boldsymbol{h}^T\boldsymbol{w}=y$. This means we can rewrite our network as $f(\boldsymbol{x})=\boldsymbol{w}^T\boldsymbol{W}^T\boldsymbol{x}=\boldsymbol{x}^T\boldsymbol{w'}$, where $\boldsymbol{w'}=\boldsymbol{W}\boldsymbol{w}$. So how do we get $\boldsymbol{w'}$?
 
             </p>
-            
+
             <h3> ReLU </h3>
 
             <p>
@@ -246,10 +246,10 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
             </div>
 
             <p>
-               It's fairly easy to see that ReLUs are closely linear, which we'll later see gives them many great properties when it comes to optimizing gradient-based models. We'll talk about other activation functions later, but for now we'll focus on ReLUs. 
+               It's fairly easy to see that ReLUs are closely linear, which we'll later see gives them many great properties when it comes to optimizing gradient-based models. We'll talk about other activation functions later, but for now we'll focus on ReLUs.
                <br><br>
                Great, so we have our model fully developed. Given our input $\boldsymbol{x}$ we're going to make a linear transformation to it using a learned weight matrix $\boldsymbol{W}$ (plus a bias vector $\boldsymbol{c}$) then apply our ReLU function on top of it to get our hidden layer $\boldsymbol{h}$, which we'll use as a linear model with a weight vector $\boldsymbol{w}$ (plus a bias term $b$) to get our final output $y$. That may sound like a lot, but we can actually write our entire network in one smooth line as $$f(\boldsymbol{x};\boldsymbol{W},\boldsymbol{c},\boldsymbol{w},b)=\boldsymbol{w}^T\max(0,\boldsymbol{W}^T\boldsymbol{x}+\boldsymbol{c})+b$$
-                
+
                 Seems easy enough, time to see how the model really behaves in action with the XOR problem. Let's consider the following weights $$\boldsymbol{W} = \begin{bmatrix}1 & 1\\1 & 1\end{bmatrix} \quad \boldsymbol{c} = \begin{bmatrix} 0 \\ -1 \end{bmatrix} \quad \boldsymbol{w}= \begin{bmatrix} 1 \\ -2 \end{bmatrix} $$ and let $b$ = 0. We also have our input $$\boldsymbol{X}=\begin{bmatrix} 0 & 0 \\1 & 0 \\ 0 & 1 \\ 1 & 1\end{bmatrix} $$where each row of our design matrix $\boldsymbol{X}$ corresponds to one of the four points from the XOR table. We'll take this step by step. Our first step is to multiply our input matrix $\boldsymbol{X}$ with our first layers weight matrix $\boldsymbol{W}$ $$\boldsymbol{X}\boldsymbol{W}= \begin{bmatrix} 0 & 0 \\ 1 & 1 \\ 1 & 1 \\ 2 & 2 \end{bmatrix}$$ then we add our bias vector $\boldsymbol{c}$, which gives us $$z = \boldsymbol{X}\boldsymbol{W}+\boldsymbol{c} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \\ 1 & 0 \\ 2 & 1 \end{bmatrix}$$ Which has the following plot
             </p>
 
@@ -270,15 +270,15 @@ theta = np.dot(x_inv_dot_x,y)</code></pre><br>
             <p>
                 In our newly transformed space represented by the features extrated from our hidden layer $\boldsymbol{h}$, we can now apply a linear model to accurately classify the 2 groups. Both points that belong to class 1, $\boldsymbol{x}=[1,0]^T$ and $\boldsymbol{x}=[0,1]^T$, have collapsed onto a new point in our feature space, $\boldsymbol{h}=[1,0]^T$. With this simple example  we can see what these learned feature spaces are capable of, which in this case is creating a new space for our training data to become linearly seperable. We'll also later see that these learned representations can also help with generalizibility, but let's not get ahead of ourselves just yet, we still have to finish this problem first.
 
-                Now to get our output layer we multiply the hidden layer $\boldsymbol{h}$ with the weight vector $w$ and add our bias term $b=0$ to get $$y=\begin{bmatrix} 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}$$ which we can see has successfully solved the XOR problem.   
+                Now to get our output layer we multiply the hidden layer $\boldsymbol{h}$ with the weight vector $w$ and add our bias term $b=0$ to get $$y=\begin{bmatrix} 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}$$ which we can see has successfully solved the XOR problem.
             </p>
 
             <h2>Conclusion</h2>
             <p>
 
 
-                Hopefully this helped you gain a stronger intuition on what is going on under the hood of feedforward neural networks. Recall that our ultimate goal is to approximate some $f^*$ that perfectly describes the data. Our network was able to do this by learning a new feature space from our hidden layer with $f^{(1)}$, which then allowed us to fit a straight line using $f^{(2)}$ to accurately predict each class. While in this specific example we provided the weights that helped our loss function reach global minimum , we typically 
-                never know the exact weights to use when using real world data. Our objective is then to learn what those model parameters, $\boldsymbol{\theta}$, should be in order to minimize our loss function. We also typically have millions of parameters and multiple hidden layers to optimize for, thus guessing weights is not an effective technique to approximate $f^*$. This is why gradient descent is used. 
+                Hopefully this helped you gain a stronger intuition on what is going on under the hood of feedforward neural networks. Recall that our ultimate goal is to approximate some $f^*$ that perfectly describes the data. Our network was able to do this by learning a new feature space from our hidden layer with $f^{(1)}$, which then allowed us to fit a straight line using $f^{(2)}$ to accurately predict each class. While in this specific example we provided the weights that helped our loss function reach global minimum , we typically
+                never know the exact weights to use when using real world data. Our objective is then to learn what those model parameters, $\boldsymbol{\theta}$, should be in order to minimize our loss function. We also typically have millions of parameters and multiple hidden layers to optimize for, thus guessing weights is not an effective technique to approximate $f^*$. This is why gradient descent is used.
                 <br><br>
                 It's also important to note that in our XOR solution our weights had nice integer values, which is almost never the case for most solutions. This was simply for illustration. <!-- Now that we have a better sense of what neural networks are really trying to acheive with nonlinear data we can ask our next question, how can we always find the perfect weights that gives us the right $f^*$? A more formal way of asking this is∂, how do we find the optimal weights that minimize our loss function? -->
             </p>

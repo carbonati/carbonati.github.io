@@ -2,14 +2,14 @@
 <html>
     <head>
         <title>Random Forests From Scratch</title>
-        <meta name="viewport" content="width-device-width, initial-scale=1">        
+        <meta name="viewport" content="width-device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="../../css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        
+
 
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({
@@ -20,7 +20,7 @@
               TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
               messageStyle: "none"
             });
-        </script> 
+        </script>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
@@ -100,11 +100,11 @@
 
             }
         </style>
-          
+
     </head>
 
     <body>
-        
+
         <script src="../../js/header.js"></script>
         <link rel="stylesheet" href="../../css/style.css">
         <style>
@@ -125,18 +125,18 @@
                     width: 748px;
                     padding-left: 0;
                     padding-right: 0;
-                    
+
                 }
-            }   
+            }
         </style>
 
-        <div class="title-article">     
+        <div class="title-article">
 
             <h1>Random Forests From Scratch</h1>
             <p>Learn how to build a random forest from scratch with python.</p>
 
             <div class = "pub-date">
-                <p><em>Dec. 14, 2017</em></p>
+                <p><em>Dec. 14, 2016</em></p>
             </div>
 
             <hr>
@@ -146,8 +146,8 @@
 
             <h2 id="introduction">Introduction</h2>
             <p>
-                
-                Random forests are known as ensemble learning methods used for classification and regression, but in this particular case I'll be focusing on classification. Random forests are essentially a collection of decision trees that are each fit on a subsample of the data. While an individual tree is typically noisey and subject to high variance, random forests average <i>many</i> different trees, which in turn reduces the variability and leave us with a powerful classifier. 
+
+                Random forests are known as ensemble learning methods used for classification and regression, but in this particular case I'll be focusing on classification. Random forests are essentially a collection of decision trees that are each fit on a subsample of the data. While an individual tree is typically noisey and subject to high variance, random forests average <i>many</i> different trees, which in turn reduces the variability and leave us with a powerful classifier.
             </p>
             <p>
                 Random forests are also non-parametric and require little to no parameter tuning. They differ from many common machine learning models used today that are typically optimized using gradient descent. Models like linear regression, support vector machines, neural networks, etc. require a lot of matrix based operations, while tree based models like random forest are constructed with basic arithmetic. In other words, to build a tree all we're really doing is selecting a hand full of observations from out dataset, picking a few features to look through, and finding the value that makes the best split in our data. We'll define what what it means to be the "best split" in a bit..
@@ -155,10 +155,10 @@
             <h2 id="decision-trees">Decision Trees</h2>
 
             <p>
-                
-                A quick overview if you're not familiar with binary decision trees. We start from very top, which we'll call the <b>root node</b>, and ask a simple question. If the answer to the question is correct we'll move to the left node directly connected below, which we'll call the <b>left child</b>, otherwise, if the answer is wrong we'll move down to the right node, which we'll call the <b>right child</b>. We'll repeat this process until we reach one of the bottom nodes, also known as the <b>terminal nodes</b>. For classification the terminal nodes output the class that is the mode while in the context of regression they'll output the mean prediction. 
+
+                A quick overview if you're not familiar with binary decision trees. We start from very top, which we'll call the <b>root node</b>, and ask a simple question. If the answer to the question is correct we'll move to the left node directly connected below, which we'll call the <b>left child</b>, otherwise, if the answer is wrong we'll move down to the right node, which we'll call the <b>right child</b>. We'll repeat this process until we reach one of the bottom nodes, also known as the <b>terminal nodes</b>. For classification the terminal nodes output the class that is the mode while in the context of regression they'll output the mean prediction.
             </p>
-                
+
             <div class="centerimgcontainer">
                 <img src="img/decision-tree-01.png" class="img-responsive">
             </div>
@@ -170,17 +170,17 @@
             <div class="centerimgcontainer">
                 <img src="./img/dart-board-variance.png" class="img-responsive">
             </div>
-               
-            <br> 
+
+            <br>
             <p>
-                Decision trees have whats called <i>low bias</i> and <i>high variance</i>. This just means that our model is <i>inconsistent</i>, but <i>accurate</i> on average. Imagine a dart board filled with darts all over the place missing left and right, however, if we were to average them into just 1 dart we could have a <i>bullseye</i>. Each individual tree can be thought of as the innacurate darts and a random forest would give us that bullseye. 
+                Decision trees have whats called <i>low bias</i> and <i>high variance</i>. This just means that our model is <i>inconsistent</i>, but <i>accurate</i> on average. Imagine a dart board filled with darts all over the place missing left and right, however, if we were to average them into just 1 dart we could have a <i>bullseye</i>. Each individual tree can be thought of as the innacurate darts and a random forest would give us that bullseye.
             </p>
 
 
             <h2 id="the-data">The Data</h2>
 
-            <p> 
-                In this particular example I'll be using <a href="https://www.kaggle.com/c/titanic" style="text-decoration:none">Kaggles Titanic</a> dataset. This dataset is incredibly simple and will be useful for demonstrating how the model works in its entirety. 
+            <p>
+                In this particular example I'll be using <a href="https://www.kaggle.com/c/titanic" style="text-decoration:none">Kaggles Titanic</a> dataset. This dataset is incredibly simple and will be useful for demonstrating how the model works in its entirety.
             </p>
             <link rel="stylesheet" href="../../js/styles/github-tanner.css">
             <pre><code class="python">import random
@@ -211,7 +211,7 @@ df.loc[df['Embarked'].isnull(),'Embarked'] = df['Embarked'].value_counts().index
             <p>
                 Lets split the data into a training and testing set so we'll be able to validate our models performance
             </p>
-                
+
             <pre><code class="python">features = ['Pclass','Sex','Age','SibSp','Parch', 'Fare', 'Embarked']
 nb_train = int(np.floor(0.9 * len(df)))
 df = df.sample(frac=1, random_state=217)
@@ -222,26 +222,26 @@ y_test = df['Survived'][nb_train:].values</code></pre>
 
             <h2 id="entropy">Entropy</h2>
             <p>
-                
+
                 The most commonly used measurements for constructing binary decision trees are: Entropy, Classification Error, and Gini index. In this thread we'll be focusing on <b>entropy</b>, which a measurement of <i>uncertainty</i> (sometimes called impurity) that uses the following formula
 
                 $$H(X) = -\sum_{j}p_j\log p_j$$
                 such that $p_j$ is the probability of class $j$. <br>At first glance this formula might not make any sense, but once we see some examples it actually has some great properties. In the case of binary classification entropy takes on the form
 
-                $$H(X) = -p\log_2p-(1-p)\log_2(1-p)$$ 
+                $$H(X) = -p\log_2p-(1-p)\log_2(1-p)$$
 
                 where $p$ denotes $P(X=1)$ (the probablity that a passenger survived). Also note that in the case of binary classification we use $\log_2$, agian we'll see more about this in a bit
 
             </p>
 
-            <div class="centerimgcontainer"> 
+            <div class="centerimgcontainer">
                 <img src="./img/entropy.png" class="img-responsive" style="width: 80%">
             </div>
 
             <p>
 
                 Entropy follows a very intuitive interpretation with the following properties:
-                <ul> 
+                <ul>
                     <li>
                         <b>Certainty:</b> Entropy is minimized when all samples in a node belong to the same class such that $P(X=1) = 1$ (in our case every passenger survives)
                     </li>
@@ -250,7 +250,7 @@ y_test = df['Survived'][nb_train:].values</code></pre>
                             $-1\log_2(1) - 0\log_2(0) = 0$
                         </li>
                     </ul>
-                
+
                     <li>
                         <b>Uncertainty:</b> Entropy is maximized when we a uniform class ditrubution such that $P(X=1)$ = 0.5 (in our case each passenger has a 50% chance of surviving)
                     </li>
@@ -260,18 +260,18 @@ y_test = df['Survived'][nb_train:].values</code></pre>
                         </li>
                     </ul>
                 </ul>
-                
-                When we are looking for a training set to split we'll want to find a set that maximizes entropy, where half the passengers survived and half perished, so we'll want to start uncertain. When we are looking for a value to split we'll want to minimize entropy, so we'll end as certain as possible. I'll go into further details on this below. 
+
+                When we are looking for a training set to split we'll want to find a set that maximizes entropy, where half the passengers survived and half perished, so we'll want to start uncertain. When we are looking for a value to split we'll want to minimize entropy, so we'll end as certain as possible. I'll go into further details on this below.
 
             </p>
 
             <h2 id="information-gain">Information Gain</h2>
 
             <p>
-                    
-                When we compare the entropy from before and after a split we get whats called <b>information gain</b>. Information gain  measures how much information we gained when splitting a node at a particular value. Information gain $IG$ is computed with the following formula, 
 
-                $$IG(D)=I(D_p)-\frac{N_{left}}{N_p}I(D_{left})-\frac{N_{right}}{N_p}I(D_{right})$$ 
+                When we compare the entropy from before and after a split we get whats called <b>information gain</b>. Information gain  measures how much information we gained when splitting a node at a particular value. Information gain $IG$ is computed with the following formula,
+
+                $$IG(D)=I(D_p)-\frac{N_{left}}{N_p}I(D_{left})-\frac{N_{right}}{N_p}I(D_{right})$$
 
                 where $D_p, D_{left}, D_{right}$ represent the datasets from the parent, left, and right children nodes, $N_p$, $N_{left}$, $N_{right}$ represent the number of observations in the parent, left and right children nodes and $I(D)$ denotes the entropy for that particular node. This formula can be intrepreted as
 
@@ -288,18 +288,18 @@ y_test = df['Survived'][nb_train:].values</code></pre>
 
             <p>
                 In this example the parent node has 80 total passengers, 50 survived, and 30 perished. All passengers 18 years old or younger drop into the left child (35 survived, 10 perished) and all passengers older than 18 drop into the right child (15 survived, 20 perished). If we compute the entropy for the parent and both children nodes we'll have the following:
-                 
+
                 $$I(D_p) = -\frac{30}{80}\log_2(\frac{30}{80})-\frac{50}{80}\log_2(\frac{50}{80}) = 0.95$$
 
                 $$I(D_{left}) = -\frac{25}{35}\log_2(\frac{25}{35})-\frac{10}{35}\log_2(\frac{10}{35}) = 0.86$$
 
                 $$I(D_{right}) = -\frac{5}{45}\log_2(\frac{5}{45})-\frac{40}{45}\log_2(\frac{40}{45}) = 0.50$$
 
-                which will give us the following information gain, 
+                which will give us the following information gain,
 
                 $$I(D) = 0.95 - \frac{35}{80}(0.86)-\frac{45}{80}(0.50) = 0.292$$
 
-                If this is the largest information gain among all the possible splits we would use this value as the chosen split point on this particular node. We'll repeat this process for each node until we've reached a terminal node that only consists of one class only <i>or</i> when we reach the maximum depth specified beforehand. The class with the highest counts in a terminal node (sometimes referred to as a <i>leaf</i>) will be assigned to any test value that lands on that terminal. 
+                If this is the largest information gain among all the possible splits we would use this value as the chosen split point on this particular node. We'll repeat this process for each node until we've reached a terminal node that only consists of one class only <i>or</i> when we reach the maximum depth specified beforehand. The class with the highest counts in a terminal node (sometimes referred to as a <i>leaf</i>) will be assigned to any test value that lands on that terminal.
 
                 Now that we know how to construct a single tree lets go over the method for building a random forest..
 
@@ -309,17 +309,17 @@ y_test = df['Survived'][nb_train:].values</code></pre>
 
             <p>
 
-                One of the main reasons random forests are so powerul is due to the randomness injected into each tree. What do I mean by this? 
+                One of the main reasons random forests are so powerul is due to the randomness injected into each tree. What do I mean by this?
                 Each individual decision tree will be constructed on a bootstrapped subset of our data. If our dataset has $n$ observations <b>bootstrapping</b> is the process of sampling $n$ points <b>with</b> replacement. This means that some obsverations in our data set will be selected more than once and some won't be selected at all. We can actually calculate that the probability an observation is omitted from our bootstrapped dataset is  $(1 - \frac{1}{n})^{n}$. By definition $e^{-1} = \displaystyle \lim_{n\to\infty}(1-\frac{1}{n})^n$ and since $e^{-1}$ = 0.36787.. $\approx \frac{1}{3}$ $\Rightarrow$ bootstrapping $n$ samples with replacement will leave out approximately $\frac{1}{3}$ of the observations in each distinct tree. Since each individual tree is built using only $\frac{2}{3}$ of the data we'll  find that most trees will differ significantly from one another. If interested, a full proof of this can be found on my blog <a href="https://carbonati.github.io/posts/bootstrap-sample-size-proof/">here</a>.
                 <br><br>
-                The other great thing that comes with bootstrapping is that we get whats called an <b>out-of-bag error estimate</b> for free. The OOB (out-of-bag) samples are the $\approx \frac{1}{3}$ observations that were not selected to build a parcticular tree. Once we've built our tree with the <i>n</i> bootstrapped observations we can test each $\vec{x}_i$ that was left out and compute the mean prediction error from those samples. We can compute an OOB score for each tree and take the average of all those scores to get an estimate for how accurate our random forests performs, this is essentially <b>leave-one-out cross validation</b>. This will give us an estimate for how accurate our model is without having to formally test it on new data and we'll soon find that it is approximately the same error rate we'll get at test time. 
+                The other great thing that comes with bootstrapping is that we get whats called an <b>out-of-bag error estimate</b> for free. The OOB (out-of-bag) samples are the $\approx \frac{1}{3}$ observations that were not selected to build a parcticular tree. Once we've built our tree with the <i>n</i> bootstrapped observations we can test each $\vec{x}_i$ that was left out and compute the mean prediction error from those samples. We can compute an OOB score for each tree and take the average of all those scores to get an estimate for how accurate our random forests performs, this is essentially <b>leave-one-out cross validation</b>. This will give us an estimate for how accurate our model is without having to formally test it on new data and we'll soon find that it is approximately the same error rate we'll get at test time.
 
             </p>
 
             <h2 id="bagging">Bagging</h2>
 
             <p>
-                
+
                 The other great idea that random forests introduce is the concept of bagging. <b>Bagging</b> is the process of growing a tree where each node in the tree looks at <b>every</b> value in our bootstrapped sample in <b>every</b> feature to find the best split in the data at that particular node. This is repeated for all trees.
                 <br><br>
                 Random forests follow the same procedure as bagging, however, the key difference is that on a dataset with $p$ features each tree will only look at a <b>subset of $m$ features</b> where $m=\sqrt(p)$. This is injecting even more randomness into the model due to the fact that if we sampled all $p$ features in each tree we would likely be making splits at the same values from the same features in most trees. Given that we are only looking at $\sqrt(p)$ features at one time many of the trees will look at a different groups of feature from one another. With this we'll be able to produce many *uncorrelated* trees which will help us capture a lot of the variability as well as interactions between multiple variables.
@@ -329,7 +329,7 @@ y_test = df['Survived'][nb_train:].values</code></pre>
             <h2 id="random-forest-algorithm">Random Forest Algorithm</h2>
 
             <p>
-                
+
                 Suppose we have the following data data {$(\vec{x}_1,y_1),(\vec{x}_2,y_2),..,(\vec{x}_n,y_n)$} where each $\vec{x}_i$ represents a feature vector $[x_{i1},x_{i2},...,x_{im}]$ and let $B$ be the number of trees we want to construct in our forest. We will do the following,
 
                 <ol>
@@ -340,20 +340,20 @@ y_test = df['Survived'][nb_train:].values</code></pre>
                         <li>
                             Draw a bootstrap sample of size <i>n</i> from the data
                         </li>
-                
+
                         <li>
                             Grow a decision tree $T_b$ from our bootstrapped sample, by repeating the following steps until the each node consists of 1 class only or until we've reached the minimum node size $\min_{size}$ specified beforehand
                         </li>
-                    
+
                         <ol type="i">
                             <li>
                                 sample $m=\sqrt{p}$ features (where $p$ is the number of features in our dataset)
                             </li>
-                  
+
                             <li>
                                 compute the information gain for each possible value among the bootstrapped data and $m$ features
                             </li>
-                  
+
                             <li>
                                 split the node into 2 children nodes
                             </li>
@@ -370,7 +370,7 @@ y_test = df['Survived'][nb_train:].values</code></pre>
             <h2 id="show-me-the-code">Show Me The Code</h2>
 
             <p>
-                
+
                 Now that we understand how to construct an individual decision tree and all the necessary steps to build our random forest lets write it all from scratch in python.
                 <br><br>
                 Lets first define <code>entropy</code> and <code>information_gain</code> which we will help us in finding the best split point
@@ -384,7 +384,7 @@ y_test = df['Survived'][nb_train:].values</code></pre>
         return 0
     else:
         return - (p * np.log2(p) + (1 - p) * np.log2(1-p))
-    
+
 def information_gain(left_child, right_child):
     parent = left_child + right_child
     p_parent = parent.count(1) / len(parent) if len(parent) > 0 else 0
@@ -397,7 +397,7 @@ def information_gain(left_child, right_child):
 
             <p>
 
-                where <code>entropy</code> takes in a probability of a class within a node and <code>information_gain</code> takes in a list of the classes from the left and right child and returns the information gain of that particular split. 
+                where <code>entropy</code> takes in a probability of a class within a node and <code>information_gain</code> takes in a list of the classes from the left and right child and returns the information gain of that particular split.
 
             </p>
             <p>
@@ -441,15 +441,15 @@ def oob_score(tree, X_test, y_test):
                         <li>
                             (int) the feature index
                         </li>
-                
+
                         <li>
                             (int) the value to split at
                         </li>
-                
+
                         <li>
                             (dictionary) left child node
                         </li>
-                
+
                         <li>
                             (dictionary) right child node
                         </li>
@@ -475,7 +475,7 @@ def oob_score(tree, X_test, y_test):
     for split_point in X_bootstrap[:,feature_idx]:
         left_child = {'X_bootstrap': [], 'y_bootstrap': []}
         right_child = {'X_bootstrap': [], 'y_bootstrap': []}
-        
+
         # split children for continuous variables
         if type(split_point) in [int, float]:
             for i, value in enumerate(X_bootstrap[:,feature_idx]):
@@ -494,18 +494,18 @@ def oob_score(tree, X_test, y_test):
                 else:
                     right_child['X_bootstrap'].append(X_bootstrap[i])
                     right_child['y_bootstrap'].append(y_bootstrap[i])
-        
+
         split_info_gain = information_gain(left_child['y_bootstrap'], right_child['y_bootstrap'])
         if split_info_gain > best_info_gain:
             best_info_gain = split_info_gain
             left_child['X_bootstrap'] = np.array(left_child['X_bootstrap'])
             right_child['X_bootstrap'] = np.array(right_child['X_bootstrap'])
-            node = {'information_gain': split_info_gain, 
-                    'left_child': left_child, 
-                    'right_child': right_child, 
+            node = {'information_gain': split_info_gain,
+                    'left_child': left_child,
+                    'right_child': right_child,
                     'split_point': split_point,
                     'feature_idx': feature_idx}
-            
+
 
     return node</code></pre>
 
@@ -536,10 +536,10 @@ def oob_score(tree, X_test, y_test):
                         Repeat steps 1 - 6 until each branch has a terminal node
                     </li>
                 </ol>
-               
+
                 <br>
             </p>
-                
+
             <pre><code class="python">def terminal_node(node):
     y_bootstrap = node['y_bootstrap']
     pred = max(y_bootstrap, key = y_bootstrap.count)
@@ -548,22 +548,22 @@ def oob_score(tree, X_test, y_test):
 
 def split_node(node, max_features, min_samples_split, max_depth, depth):
     left_child = node['left_child']
-    right_child = node['right_child']    
+    right_child = node['right_child']
 
     del(node['left_child'])
     del(node['right_child'])
-    
+
     if len(left_child['y_bootstrap']) == 0 or len(right_child['y_bootstrap']) == 0:
         empty_child = {'y_bootstrap': left_child['y_bootstrap'] + right_child['y_bootstrap']}
         node['left_split'] = terminal_node(empty_child)
         node['right_split'] = terminal_node(empty_child)
         return
-    
+
     if depth >= max_depth:
         node['left_split'] = terminal_node(left_child)
         node['right_split'] = terminal_node(right_child)
         return node
-    
+
     if len(left_child['X_bootstrap']) <= min_samples_split:
         node['left_split'] = node['right_split'] = terminal_node(left_child)
     else:
@@ -625,7 +625,7 @@ def random_forest(X_train, y_train, n_estimators, max_features, max_depth, min_s
 
             <pre><code class="python">def predict_tree(tree, X_test):
     feature_idx = tree['feature_idx']
-    
+
     if X_test[feature_idx] <= tree['split_point']:
         if type(tree['left_split']) == dict:
             return predict_tree(tree['left_split'], X_test)
@@ -639,7 +639,7 @@ def random_forest(X_train, y_train, n_estimators, max_features, max_depth, min_s
             return tree['right_split']</code></pre>
 
             <p>
-                We'll repeat the above process for an input $\vec{x}_i$ for all the trees in our ensemble and whichever class was returned more frequently will be the class predicted from our model. 
+                We'll repeat the above process for an input $\vec{x}_i$ for all the trees in our ensemble and whichever class was returned more frequently will be the class predicted from our model.
             </p>
 
             <pre><code class="python">def predict_rf(tree_ls, X_test):
@@ -676,20 +676,20 @@ print("Testing accuracy: {}".format(np.round(acc,3)))</code></pre>
             <h2 id="conclusion">Conclusion</h2>
 
             <p>
-                
-                I hope this was of use for anyone curious to learn about random forests. Random forests are great for an array reasons that include an easy implementation and require little to no parameter tuning. RF's may not be power houses like neural networks or gradient boosting models, but they should certainly be in everyones machine learning repertoire. There are methods that can allow you to see which variables are more important than others that I didn't cover in this thread, but are worth looking into. Hopefully this can also help you get in the right direction if you are also interested in understanding how gradient boosting models like Xgboost work. 
+
+                I hope this was of use for anyone curious to learn about random forests. Random forests are great for an array reasons that include an easy implementation and require little to no parameter tuning. RF's may not be power houses like neural networks or gradient boosting models, but they should certainly be in everyones machine learning repertoire. There are methods that can allow you to see which variables are more important than others that I didn't cover in this thread, but are worth looking into. Hopefully this can also help you get in the right direction if you are also interested in understanding how gradient boosting models like Xgboost work.
 
             </p>
         </div>
-        
+
         <hr>
-        
+
         <div class="blog-article">
 
             <h2 id="references">References</h2>
 
             <p>
-    
+
                 <ol>
                     <li>
                         L. Breiman. Random forests. Maching Learning, 45(1):5–32, Oct. 2001. <a href="https://link.springer.com/content/pdf/10.1023%2FA%3A1010933404324.pdf" style="text-decoration:none">[pdf]</a>
@@ -698,7 +698,7 @@ print("Testing accuracy: {}".format(np.round(acc,3)))</code></pre>
 
 
             </p>
-            
+
             <p>
                 For source code please take a look at this jupyter notebook <a href="https://github.com/carbonati/machine-learning/blob/master/random-forests/random%20forests.ipynb" style="text-decoration:none">here</a>
                 <br><br><br>
