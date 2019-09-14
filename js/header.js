@@ -13,7 +13,7 @@ var header = d3.select('body')
 var logo = header.append('a')
 	.classed('logo', true)
 	.attr('href',"https://carbonati.github.io")
-	.text("Tanner's blog")
+	.text("\x0B\x0B\x0B\x0B\xa0 t \xa0\xa0")
 
 var nav = header.append('div')
 	.classed('nav', true)

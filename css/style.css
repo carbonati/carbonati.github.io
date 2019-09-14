@@ -1,185 +1,178 @@
 html {
-	height: 100%;
-	box-sizing: border-box;
-	overflow-x: hidden;
-	font-size: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-size: 24px;
 }
 
 div {
-	display: block;
+  display: block;
 }
 
 body {
-	/*font-family: Helvetica, Arial, sans-serif;*/	
-	font: 200 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+	/*font-family: Helvetica, Arial, sans-serif;*/
+  font: 200 17px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
 }
 
-
 .tan-header {
-	font-family: Helvetica Neue;	
-    display: block;
-    position: relative;
-    height: 70px;
-    background-color: #35424a;
-    width: 100%;
-    text-decoration: none;
-    box-sizing: border-box;
-    z-index: 2;
-    color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  font-family: Helvetica Neue;
+  display: block;
+  position: relative;
+  height: 70px;
+  background-color: #35424a;
+  width: 100%;
+  text-decoration: none;
+  box-sizing: border-box;
+  z-index: 2;
+  color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 500px) {
-	.tan-header .content {
-		margin-left: auto;
-		margin-right: auto;
-		height: 70px;
-		padding-left:20px;
-		padding-right:20px;
-
-	}
+  .tan-header .content {
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 @media (max-width: 1080px) and (min-width: 500px) {
-	.tan-header .content {
-		margin-left: auto;
-		margin-right: auto;
-		height: 70px;
-		padding-left:70px;
-		padding-right:70px;
-	}
+  .tan-header .content {
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+    padding-left: 70px;
+    padding-right: 70px;
+  }
 }
 
 .tan-header .l-page a:hover {
-	color: rgba(255,255,255,1);
-	text-decoration: none;
+  color: rgba(255,255,255,1);
+  text-decoration: none;
 }
 
 .tan-header a {
-
-	color: rgba(255, 255, 255, 0.8);
-	font-size: 16px;
-	text-decoration: none;
-	line-height: 70px;
-	padding: 28px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  text-decoration: none;
+  line-height: 70px;
+  padding: 28px 0;
 }
 
 .home-page-list .thumbnail {
-		position: relative;
-	    /*max-width: 320px;*/
-	}
-
+  position: relative;
+	    /*max-width: 320px;*/;
+}
 
 .tan-header .logo {
-	font-size: 23px;
-	font-weight: 200;
+  font-size: 35px;
+  font-weight: 100;
+  padding: 25px
 }
 
 .tan-header .nav {
- 	float: right;
+  float: right;
 }
 
 .tan-header .nav a {
-	font-size: 15px;
- 	margin-left:20px;
-
+  font-size: 15px;
+  margin-left: 20px;
 }
+
 @media (min-width: 786px) {
 
-	.tan-header .content {
+  .tan-header .content {
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+  }
 
-		margin-left: auto;
-	    margin-right: auto;
-	  	height: 70px	;
-	}
+  .tan-header .nav a {
+    font-size: 16px;
+    margin-left: 20px;
+  }
 
-	.tan-header .nav a {
-		font-size: 16px;
-	 	margin-left: 20px;
-	}	
-
-	.tan-header a {
-		line-height: 70px;
-		padding: 28px 0;
-	}
+  .tan-header a {
+    line-height: 70px;
+    padding: 28px 0;
+  }
 }
 
 @media(min-width: 1080px) {
-  
-	.tan-header {
-		height: 70px;
-	}
 
-	.tan-header .content {
+  .tan-header {
+    height: 70px;
+  }
 
-		margin-left: auto;
-	    margin-right: auto;
-		  height: 70px;
-		  width: 900px;
-	  
-	}
+  .tan-header .content {
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+    width: 900px;
+  }
 
-	.tan-header a {
-		line-height: 70px;
-		padding: 28px 0;
-	}
+  .tan-header a {
+    line-height: 70px;
+    padding: 28px 0;
+  }
 
-	.tan-header .nav a {
- 		font-size: 16px;
-	}
-
+  .tan-header .nav a {
+    font-size: 16px;
+  }
 }
 
 .home-page-list {
-	margin-top: 24px;
-    margin-bottom: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .home-article a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .home-page-list .metadata {
-	font-size: 14px;
-    line-height: 1.4em;
-    margin-bottom: 18px;
+  font-size: 14px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
 }
 
 .metadata .publishedDate {
-    margin-right: 1em;
+  margin-right: 1em;
 }
 
 .metadata > * {
-    display: inline-block;
+  display: inline-block;
 }
 
 .home-page-list {
-	margin-left: 70px;
-    margin-right: 70px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .home-page-list .post-preview .thumbnail {
-	border: 0;
-    margin-bottom: 24px;
-    position: relative;
-    box-sizing: border-box;
-    max-width: 450px;
+  border: 0;
+  margin-bottom: 24px;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 450px;
 }
 
 @media(max-width: 768px) {
-		.home-page-list {
-			margin-left: 25px;
-		    margin-right: 25px;
-		}
+  .home-page-list {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
 }
 
 @media(min-width: 768px) {
   .home-page-list .description h2 {
-		font-size: 26px;
-		margin-top: 48px;
-		margin-bottom: 12px;
-	}
+    font-size: 26px;
+    margin-top: 48px;
+    margin-bottom: 12px;
+  }
 }
 
 .home-page-list .post-preview img {
@@ -187,56 +180,57 @@ body {
   display: block;
 }
 
-
 .home-page-list .post-preview {
-		
-    overflow: hidden;
-    display: block;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-	}
+  overflow: hidden;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 
 .home-page-list .post-preview p {
-	    margin: 0 0 12px 0;
-	    line-height: 1.4em;
-	    font-size: 14px;
+  margin: 0 0 12px 0;
+  line-height: 1.4em;
+  font-size: 14px;
 }
 
 .home-page-list .post-preview h2 {
-    margin: 0 0 6px 0;
-    line-height: 1.2em;
-    font-weight: 600;
-    font-size: 22px;
-    
+  margin: 0 0 6px 0;
+  line-height: 1.2em;
+  font-weight: 600;
+  font-size: 22px;
 }
-
 
 @media(min-width: 768px) {
 
-	#bnn {
-		padding-bottom: 30px;
-	}
+  #bnn {
+    padding-bottom: 30px;
+  }
+
   .home-page-list .post-preview .description h2 {
     font-size: 26px;
   }
+
   .home-page-list {
     margin-top: 60px;
   }
+
   .home-page-list .post-preview .thumbnail {
     float: right;
     width: 35%;
     margin-bottom: 0;
   }
+
   .home-page-list .post-preview .description {
     float: left;
     line-height: 1.5em;
     width: 40%;
   }
+
   .home-page-list .post-preview .metadata {
     float: left;
     width: 15%;
     margin-top: 8px;
   }
+
   .home-page-list .post-preview p {
     margin: 0 0 12px 0;
     line-height: 1.5em;
@@ -245,105 +239,98 @@ body {
 }
 
 @media (min-width: 1080px) {
-	
-	.home-article > h1, .home-article section > h1, .home-page-list, .l-page, .home-article .l-page, .home-article.centered .l-page,
+
+  .home-article > h1, .home-article section > h1, .home-page-list, .l-page, .home-article .l-page, .home-article.centered .l-page,
 	.tan-header .content {
-	    width: 900px;
-	    display: border;
-	    margin-left: auto;
-	    margin-right: auto;
+    width: 900px;
+    display: border;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	}
+  .home-page-list .post-preview {
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    padding-bottom: 50px;
+  }
 
-	.home-page-list .post-preview {
-	    overflow: hidden;
-	    display: block;
-	    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	    padding-bottom: 40px;
-	    margin-left: auto;
-	    margin-right: auto;
-	    width: 900px;
-	    padding-bottom: 50px;
+  #bnn {
+    padding-bottom: 60px;
+  }
 
-	}
+  .home-page-list .post-preview a {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
 
-	#bnn {
-		padding-bottom: 60px;
-	}
+  .home-page-list {
+    margin-top: 60px;
+  }
 
-	.home-page-list .post-preview a {
-
-	    text-decoration: none;
-	    overflow: hidden;
-	    display: block;
-	    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	}
-
-	.home-page-list {
-	    margin-top: 60px;
-	}	
-	
-	.home-page-list .thumbnail {
-		border: 0;
-	    float: right;
+  .home-page-list .thumbnail {
+    border: 0;
+    float: right;
 	    /*width: 35%;*/
-	    height: 200px;
-		width: 90%;
-	}
-	
-	.home-page-list .thumbnail {
-		border: 0;
+    height: 200px;
+    width: 90%;
+  }
+
+  .home-page-list .thumbnail {
+    border: 0;
 	    /*box-sizing: border-box;*/
-	    margin-bottom: 50px;
-	    position: relative;
-	    max-width: 320px;
-	}
+    margin-bottom: 50px;
+    position: relative;
+    max-width: 320px;
+  }
 
-	
-	.home-page-list .post-preview .description {
-	    float: left;
-	    width: 40%;
-	    font-size: 17px;
-	}
-	
+  .home-page-list .post-preview .description {
+    float: left;
+    width: 40%;
+    font-size: 17px;
+  }
 
-	.home-page-list .description h2 {
-	    margin: 0 0 6px 0;
-	    line-height: 1.2em;
-	    font-style: bold;
-	    font-size: 26px;
-	}
+  .home-page-list .description h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: bold;
+    font-size: 26px;
+  }
 
-	.home-page-list .metadata {
-	    float: left;
-	    width: 15%;
-	    
-	}
+  .home-page-list .metadata {
+    float: left;
+    width: 15%;
+  }
 
-	.home-page-list .metadata {
-	    font-size: 14px;
-	    line-height: 1.4em;
-	    font-style: italic;
-	}
+  .home-page-list .metadata {
+    font-size: 14px;
+    line-height: 1.4em;
+    font-style: italic;
+  }
 
-	.metadata .publishedDate {
-	    margin-right: 1em;
-	}
+  .metadata .publishedDate {
+    margin-right: 1em;
+  }
 
-	.metadata > * {
-	    display: inline-block;
-	}
+  .metadata > * {
+    display: inline-block;
+  }
 }
 
-
 @media (max-width: 1080px) {
-	.blog-article {
-		/*font-size: 26px;*/
-	}
+  .blog-article {
+		/*font-size: 26px;*/;
+  }
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px red inset;
+  -webkit-box-shadow: 0 0 0px 1000px red inset;
 }
 
 /* Base16 Atelier Heath Light - Theme */
@@ -416,19 +403,18 @@ input:-webkit-autofill {
   font-weight: bold;
 }
 
-
 .title-article {
-    grid-column: text;
-    text-align: center;
-    padding-top: 20px;
+  grid-column: text;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .title-article p {
-	font-family: Helvetica Neue;
-	font-size: 16px;
-	font-weight: 200;
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  font-weight: 200;
 }
 
 .title-article .pub-date p {
-	font-size:14px;
+  font-size: 14px;
 }
